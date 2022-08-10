@@ -77,12 +77,68 @@ class ListenThread(threading.Thread):
 
 # This function analyse each packet before sending if the packet is of type RRCsetup complete message it changes the security info element.
 def changeSecurity(data):
-    pass
+    binary_string = "{:08b}".format(int(data.hex(),16))
+    return binary_string
+
+# This function prints the data of the packets in hex format.
+def printdata(data):
+    # print(type(data))
+    # check = '001011100000010011110000111100001111000011110000'
+    # check = "001011100000010011110000111100001111000011110000"
+    # check = b'\x2E\x04\xF0\xF0\xF0\xF0'
+    if(len(data) == 55):
+        rlist = [46, 4, 128, 128, 128, 128]
+        bytetemp1 = bytes(rlist)
+        bytetemp2 = data[:-6]
+        print(len(bytetemp2))
+        newdata = bytetemp2 + bytetemp1
+        print(len(newdata))
+        # print(type(check[0]))
+        # # print(len(check))
+        # count = 0
+        # flag = 0
+        # for byte in data:
+        #     # print(hex(byte), hex(check[count]))
+        #     if(count == len(check)):
+        #         flag = 1
+        #         break;
+        #     else:
+        #         if(check[count] == byte):
+        #             count = count + 1
+        #         else:
+        #             count = 0
+        # print("Out of loop")
+        # if(flag == 1):
+        #     # print(data[index])
+        #     print("bytes found")
+    # if(check in data):
+    #     print("Found the UE Security element in packet of length: ", len(data));
+    #     print("Number of Occurences found is: ", data.count(check))
+    # else:
+    #     print(len(data))
+
+    # binary_string = "{:08b}".format(int(data.hex(),16))
+    # if(len(data) == 55):
+        # print("Found the RRC setup complete")
+    # if(check in binary_string):
+    #     print("Found the UE Security element in packet of length: ", len(binary_string));
+    #     print("Number of Occurences found is: ", binary_string.count(check))
+    #     print(binary_string[binary_string.find(check, 0, len(binary_string)):binary_string.find(check, 0, len(binary_string))+len(check)])
+    #     print("Starting index of the substring in string is: ", binary_string.find(check, 0, len(binary_string)))
+    #     print("Ending index of the substring in string is: ", binary_string.find(check, 0, len(binary_string)) + len(check))
+    # else:
+    # print(len(data))
+
 
 count = 0;
 try:
     while True:
-        data, addr = sock.recvfrom(65536) # buffer size is 1024 bytes
+        data, addr = sock.recvfrom(65536) # buffer size is in bytes
+        
+        printdata(data)
+        # count = count + 1;
+        # print("Packet Count: ", count)
+
         lock.acquire()
         try:
             if not addr in sock_dict:
@@ -100,8 +156,6 @@ try:
             else:
                 s_client = sock_dict[addr]['socket']
                 s_client.sendto(data, (FORWARD_IP, FORWARD_TO))
-                count = count + 1;
-                print("Packet Count: ", count)
         except: pass
         lock.release()
 except: pass
