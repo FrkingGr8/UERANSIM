@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #include "encode.hpp"
@@ -164,6 +164,7 @@ void NgapTask::receiveRerouteNasRequest(int amfId, ASN_NGAP_RerouteNASRequest *m
 
     auto ngapPdu = asn::New<ASN_NGAP_NGAP_PDU>();
     ngapPdu->present = ASN_NGAP_NGAP_PDU_PR_initiatingMessage;
+    ngapPdu->choice.initiatingMessage = asn::New<ASN_NGAP_InitiatingMessage>();
     ngapPdu->choice.initiatingMessage->procedureCode = ASN_NGAP_ProcedureCode_id_InitialUEMessage;
     ngapPdu->choice.initiatingMessage->criticality = ASN_NGAP_Criticality_ignore;
     ngapPdu->choice.initiatingMessage->value.present = ASN_NGAP_InitiatingMessage__value_PR_InitialUEMessage;

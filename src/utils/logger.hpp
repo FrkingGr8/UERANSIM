@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #pragma once
@@ -11,6 +11,7 @@
 #include "nts.hpp"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <spdlog/fwd.h>
@@ -45,7 +46,7 @@ class Logger
 
     inline void debug(const std::string &fmt)
     {
-        log(Severity::DEBUG, fmt);
+        log(Severity::DEBUG, "%s", fmt.c_str());
     }
 
     template <typename... Args>
@@ -56,7 +57,7 @@ class Logger
 
     inline void info(const std::string &fmt)
     {
-        log(Severity::INFO, fmt);
+        log(Severity::INFO, "%s", fmt.c_str());
     }
 
     template <typename... Args>
@@ -67,7 +68,7 @@ class Logger
 
     inline void warn(const std::string &fmt)
     {
-        log(Severity::WARN, fmt);
+        log(Severity::WARN, "%s", fmt.c_str());
     }
 
     template <typename... Args>
@@ -78,7 +79,7 @@ class Logger
 
     inline void err(const std::string &fmt)
     {
-        log(Severity::ERR, fmt);
+        log(Severity::ERR, "%s", fmt.c_str());
     }
 
     template <typename... Args>
@@ -89,7 +90,7 @@ class Logger
 
     inline void fatal(const std::string &fmt)
     {
-        log(Severity::FATAL, fmt);
+        log(Severity::FATAL, "%s", fmt.c_str());
     }
 
     template <typename... Args>

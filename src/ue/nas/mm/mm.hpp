@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #pragma once
@@ -16,6 +16,12 @@
 #include <ue/types.hpp>
 #include <utils/nts.hpp>
 #include <utils/octet_string.hpp>
+#include <utils/random.hpp>
+#include "ext/compact25519/compact_x25519.hpp"
+#include "ext/crypt-ext/x963kdf.h"
+#include "ext/crypt-ext/aes.hpp"
+#include "ext/crypt-ext/hmac-sha256.h"
+
 
 namespace nr::ue
 {
@@ -147,6 +153,7 @@ class NasMm
     void receiveIdentityRequest(const nas::IdentityRequest &msg);
     nas::IE5gsMobileIdentity getOrGenerateSuci();
     nas::IE5gsMobileIdentity generateSuci();
+    std::string generateSUCIProfileA(const std::string &imsi, const OctetString &hnPublicKey);
     nas::IE5gsMobileIdentity getOrGeneratePreferredId();
 
   private: /* Service */
